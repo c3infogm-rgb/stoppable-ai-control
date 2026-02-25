@@ -36,6 +36,7 @@ Most AI systems optimize for output. This pattern optimizes for **safe non-actio
 - `tg_audit.jsonl` (PASS/HOLD with reason codes)
 - `worm_log.jsonl` (hash-chain; tamper-evident audit trail)
 - `metrics.json`, `conformance.json`, `undefined_report.json`
+Latest release: covid_seed_audit_pack.zip (root)
 
 ## Safety notes (important)
 - The included COVID example uses a **simulated dataset** to demonstrate fail-closed audit behavior.  
