@@ -31,3 +31,7 @@ Philosophy
 
 This is not “smarter AI.”
 This is controllable, auditable AI.
+## Quick start
+- Audit prompt templates: `prompts/`
+- Minimal demo notes: `demo.txt`
+- Docs (public): see PDFs in the root
