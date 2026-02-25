@@ -1,0 +1,14 @@
+Mini Fail-Closed AI control loop demo
+
+If uncertainty is detected:
+→ HOLD / FREEZE
+
+Log:
+- reason_code
+- audit trail (WORM)
+
+Resume:
+→ Only after verification
+→ staged recovery (+25%/cycle)
+
+This repository shows a minimal controllable AI pattern.
