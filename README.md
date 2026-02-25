@@ -22,7 +22,7 @@ Designed for:
 - Safety-critical AI integration
 
 Uncertainty → HOLD  
-Evidence verified → Controlled recovery (+25%/cycle)
+Evidence verified → Controlled recovery (+stepwise recovery)
 
 This is not "smarter AI".
 This is controllable AI.
