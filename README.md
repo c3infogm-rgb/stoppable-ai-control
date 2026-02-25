@@ -1,3 +1,7 @@
+## Public kit
+- Audit prompt (two-shot): `prompts/audit_two_shot.txt`
+- Public docs: `docs/`
+  
 stoppable-ai-control
 
 Minimal Fail-Closed AI control loop demo (TG/WORM/IDF).
