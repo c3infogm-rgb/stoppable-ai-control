@@ -1,28 +1,29 @@
-# stoppable-ai-control
+stoppable-ai-control
 
 Minimal Fail-Closed AI control loop demo (TG/WORM/IDF).
 
-## What this is
+What this is
 
-A minimal pattern for building AI systems that:
+A minimal control pattern for AI systems that:
+	•	STOP when uncertain (HOLD / FREEZE)
+	•	Log reason codes and audit trails
+	•	Resume only after verification (staged recovery)
 
-- STOP when uncertain (HOLD / FREEZE)
-- Log reason codes and audit trails
-- Resume only after verification (staged recovery)
-
-## Why it matters
+Core idea
 
 Most AI systems optimize for output.
 This pattern optimizes for safe non-action.
 
-Designed for:
-- Financial systems
-- Governance workflows
-- Compliance-heavy environments
-- Safety-critical AI integration
+Uncertainty → HOLD
+Evidence verified → Controlled recovery (+stepwise)
 
-Uncertainty → HOLD  
-Evidence verified → Controlled recovery (+stepwise recovery)
+Designed for
+	•	Financial systems
+	•	Governance workflows
+	•	Compliance-heavy environments
+	•	Safety-critical AI integration
 
-This is not "smarter AI".
-This is controllable AI.
+Philosophy
+
+This is not “smarter AI.”
+This is controllable, auditable AI.
