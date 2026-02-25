@@ -1,0 +1,25 @@
+SHOT 1 — Conformance (Spec + Log)
+You are a neutral audit AI. Use ONLY P1 and P2.
+Return JSON ONLY. No extra text.
+
+P1 (mini spec):
+- Personas: ORION, LYRA, GAIA, CRONOS, NEMESIS, ECHO
+- States: 0/1/2
+- Safety: FREEZE(Δ=0), DOWNGRADE, STAGED_RECOVERY(step=α)
+- Openness boundary: public disclosure vs internal evidence are separated
+- reason_code present; disclosure ≤ T; signature present
+
+P2 (mini log excerpt):
+- event: CRISIS.DATA_ACTIVATE
+- state: 0
+- freeze: ON
+- reason_code: RC-EXAMPLE-001
+- disclosure_sec: 3xxx
+- signature: CORE-SIGNATURE
+
+Output JSON ONLY (max 6 lines):
+{"conformance":"Yes|No","reasons":["..."],"safety_valid":"Yes|No","missing":["..."]}
+
+SHOT 2 — SLA / chain checks
+Using the same P1/P2, output JSON ONLY (max 6 lines):
+{"public_pass":"Yes|No","signature_present":"Yes|No","reason_code_present":"Yes|No","state_chain_valid":"Yes|No","overall_pass":"Yes|No"}
