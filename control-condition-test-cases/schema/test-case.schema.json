@@ -1,6 +1,5 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/c3/control-condition-test-case-v0.1.schema.json",
   "title": "C3 Generic Control Condition Test Case v0.1",
   "type": "object",
   "additionalProperties": false,
