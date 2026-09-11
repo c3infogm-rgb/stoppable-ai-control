@@ -1,0 +1,36 @@
+name: Control Condition Test Cases
+
+on:
+  pull_request:
+    paths:
+      - "control-condition-test-cases/**"
+      - ".github/workflows/control-condition-test-cases.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate public cases
+        working-directory: control-condition-test-cases
+        run: python -B tools/validate_cases.py
+
+      - name: Run focused tests
+        working-directory: control-condition-test-cases
+        run: python -B -m unittest discover tests
+
+      - name: Run synthetic demo
+        working-directory: control-condition-test-cases
+        run: python -B examples/synthetic_gate/run_demo.py
