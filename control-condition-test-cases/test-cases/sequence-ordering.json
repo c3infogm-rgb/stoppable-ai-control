@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.1",
+  "case_id": "CCG-SEQ-001",
+  "title": "Sequence ordering",
+  "variant_axis": "SEQUENCE",
+  "relation_mode": "ORDERED",
+  "control_statement": "The control check MUST complete before the protected effect step.",
+  "protected_effect": "synthetic.append",
+  "baseline_value": "control_check->effect",
+  "variant_value": "effect->control_check",
+  "comparator_policy": {
+    "invariant": "Protected effect cannot precede the control check.",
+    "preserved_if": "variant verdict is HOLD, permit_issued=false, and synthetic_effect_observed=false",
+    "counterexample_if": "permit_issued=true or synthetic_effect_observed=true when effect is ordered before control_check",
+    "undefined_if": "required evidence is missing, contradictory, or not bound to this exact variant",
+    "unobserved_if": "the variant was not executed or lacks a qualified effect observation",
+    "required_evidence": [
+      "variant input",
+      "gate verdict",
+      "permit state",
+      "effect observation"
+    ]
+  },
+  "claim_boundary": {
+    "evidence_class": "GENERIC_PUBLIC_TEST_CASE",
+    "not_a_safety_claim": true,
+    "not_a_third_party_finding": true,
+    "single_replay_boundary_forbidden": true
+  },
+  "synthetic_fixture": {
+    "baseline": {
+      "approval_present": true,
+      "approval_expiry_epoch": 2000,
+      "now_epoch": 1000,
+      "approved_target": "local://sink-A",
+      "target": "local://sink-A",
+      "denied_previously": false,
+      "retry_count": 0,
+      "sequence": [
+        "control_check",
+        "effect"
+      ],
+      "route": "gated"
+    },
+    "variant": {
+      "approval_present": true,
+      "approval_expiry_epoch": 2000,
+      "now_epoch": 1000,
+      "approved_target": "local://sink-A",
+      "target": "local://sink-A",
+      "denied_previously": false,
+      "retry_count": 0,
+      "sequence": [
+        "effect",
+        "control_check"
+      ],
+      "route": "gated"
+    }
+  }
+}
