@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/c3/control-condition-test-case-v0.1.schema.json",
+  "title": "C3 Generic Control Condition Test Case v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "case_id", "title", "variant_axis", "relation_mode",
+    "control_statement", "protected_effect", "baseline_value", "variant_value",
+    "comparator_policy", "claim_boundary", "synthetic_fixture"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "case_id": {"type": "string", "pattern": "^CCG-[A-Z0-9-]+$"},
+    "title": {"type": "string", "minLength": 1},
+    "variant_axis": {
+      "enum": [
+        "REPRESENTATION", "CONFIGURATION", "AUTHORITY", "STATE", "SEQUENCE",
+        "TIMING", "TARGET", "PAYLOAD", "RETRY_RECOVERY",
+        "ENFORCEMENT_PLACEMENT", "CONTEXT", "MODEL_REVIEWER", "ERROR_PATH"
+      ]
+    },
+    "relation_mode": {"enum": ["ORDERED", "UNORDERED", "DECLARED_ADJACENCY"]},
+    "control_statement": {"type": "string", "minLength": 1},
+    "protected_effect": {"type": "string", "minLength": 1},
+    "baseline_value": {"type": "string", "minLength": 1},
+    "variant_value": {"type": "string", "minLength": 1},
+    "comparator_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invariant", "preserved_if", "counterexample_if", "undefined_if", "unobserved_if", "required_evidence"],
+      "properties": {
+        "invariant": {"type": "string", "minLength": 1},
+        "preserved_if": {"type": "string", "minLength": 1},
+        "counterexample_if": {"type": "string", "minLength": 1},
+        "undefined_if": {"type": "string", "minLength": 1},
+        "unobserved_if": {"type": "string", "minLength": 1},
+        "required_evidence": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "claim_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_class", "not_a_safety_claim", "not_a_third_party_finding", "single_replay_boundary_forbidden"],
+      "properties": {
+        "evidence_class": {"const": "GENERIC_PUBLIC_TEST_CASE"},
+        "not_a_safety_claim": {"const": true},
+        "not_a_third_party_finding": {"const": true},
+        "single_replay_boundary_forbidden": {"const": true}
+      }
+    },
+    "synthetic_fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline", "variant"],
+      "properties": {
+        "baseline": {"type": "object"},
+        "variant": {"type": "object"}
+      }
+    }
+  }
+}
