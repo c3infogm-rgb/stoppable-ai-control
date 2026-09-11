@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "examples" / "synthetic_gate"))
 
-from validate_cases import AXES, load_case, validate_all, validate_case  # noqa: E402
+from validate_cases import AXES, load_case, validate_all, validate_case, validate_manifest  # noqa: E402
 from gate import classify_no_effect_variant, known_gap_gate, reference_gate  # noqa: E402
 
 
@@ -73,6 +73,43 @@ class PublicPackTests(unittest.TestCase):
         case["observed_classification"] = "PRESERVED"
         errors = validate_case(case, Path("synthetic"))
         self.assertTrue(any("observed/result fields" in error for error in errors))
+
+    def test_empty_title_fails_schema_mirror_validation(self) -> None:
+        path = ROOT / "test-cases" / "authority-approval-missing.json"
+        case = copy.deepcopy(load_case(path))
+        case["title"] = ""
+        errors = validate_case(case, Path("synthetic"))
+        self.assertTrue(any("title must be a non-empty string" in error for error in errors))
+
+    def test_numeric_control_statement_fails_schema_mirror_validation(self) -> None:
+        path = ROOT / "test-cases" / "authority-approval-missing.json"
+        case = copy.deepcopy(load_case(path))
+        case["control_statement"] = 123
+        errors = validate_case(case, Path("synthetic"))
+        self.assertTrue(any("control_statement must be a non-empty string" in error for error in errors))
+
+    def test_incomplete_case_id_fails_schema_mirror_validation(self) -> None:
+        path = ROOT / "test-cases" / "authority-approval-missing.json"
+        case = copy.deepcopy(load_case(path))
+        case["case_id"] = "CCG-"
+        errors = validate_case(case, Path("synthetic"))
+        self.assertTrue(any("case_id must match" in error for error in errors))
+
+    def test_manifest_case_ids_must_match_discovered_ids(self) -> None:
+        manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+        discovered = list(manifest["case_ids"])
+        mutated = copy.deepcopy(manifest)
+        mutated["case_ids"][0] = "CCG-STALE-001"
+        errors = validate_manifest(mutated, discovered)
+        self.assertTrue(any("case_ids do not match" in error for error in errors))
+
+    def test_manifest_case_count_must_match_discovered_count(self) -> None:
+        manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+        discovered = list(manifest["case_ids"])
+        mutated = copy.deepcopy(manifest)
+        mutated["case_count"] = 5
+        errors = validate_manifest(mutated, discovered)
+        self.assertTrue(any("case_count" in error for error in errors))
 
 
 if __name__ == "__main__":
