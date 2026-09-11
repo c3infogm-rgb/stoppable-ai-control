@@ -10,4 +10,4 @@ Case Studyを追加する条件:
 4. 第三者製品の場合、公開・Responsible Disclosure判断が完了していること
 5. historical evidenceを新しいruntime observationへ読み替えていないこと
 
-Browser Useその他の進行中検証は、この条件を満たすまでここへ追加しません。
+進行中の第三者製品検証は、この条件を満たすまでここへ追加しません。
