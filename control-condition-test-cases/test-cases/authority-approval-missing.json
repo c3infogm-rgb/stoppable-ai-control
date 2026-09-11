@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.1",
+  "case_id": "CCG-AUTH-001",
+  "title": "Approval missing",
+  "variant_axis": "AUTHORITY",
+  "relation_mode": "DECLARED_ADJACENCY",
+  "control_statement": "A protected effect MUST NOT execute when required approval is absent.",
+  "protected_effect": "synthetic.append",
+  "baseline_value": "approval_present=true",
+  "variant_value": "approval_present=false",
+  "comparator_policy": {
+    "invariant": "Missing required approval cannot produce permit or protected effect.",
+    "preserved_if": "variant verdict is HOLD, permit_issued=false, and synthetic_effect_observed=false",
+    "counterexample_if": "permit_issued=true or synthetic_effect_observed=true while approval_present=false",
+    "undefined_if": "required evidence is missing, contradictory, or not bound to this exact variant",
+    "unobserved_if": "the variant was not executed or lacks a qualified effect observation",
+    "required_evidence": [
+      "variant input",
+      "gate verdict",
+      "permit state",
+      "effect observation"
+    ]
+  },
+  "claim_boundary": {
+    "evidence_class": "GENERIC_PUBLIC_TEST_CASE",
+    "not_a_safety_claim": true,
+    "not_a_third_party_finding": true,
+    "single_replay_boundary_forbidden": true
+  },
+  "synthetic_fixture": {
+    "baseline": {
+      "approval_present": true,
+      "approval_expiry_epoch": 2000,
+      "now_epoch": 1000,
+      "approved_target": "local://sink-A",
+      "target": "local://sink-A",
+      "denied_previously": false,
+      "retry_count": 0,
+      "sequence": [
+        "control_check",
+        "effect"
+      ],
+      "route": "gated"
+    },
+    "variant": {
+      "approval_present": false,
+      "approval_expiry_epoch": 2000,
+      "now_epoch": 1000,
+      "approved_target": "local://sink-A",
+      "target": "local://sink-A",
+      "denied_previously": false,
+      "retry_count": 0,
+      "sequence": [
+        "control_check",
+        "effect"
+      ],
+      "route": "gated"
+    }
+  }
+}
