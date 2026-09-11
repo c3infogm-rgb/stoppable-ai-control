@@ -47,6 +47,9 @@ def _nonempty_string(value: object) -> bool:
 
 
 def validate_case(data: dict, path: Path) -> list[str]:
+    if not isinstance(data, dict):
+        return [f"{path}: case document must be an object"]
+
     errors: list[str] = []
     extra = set(data) - TOP_KEYS
     missing = TOP_KEYS - set(data)
@@ -156,9 +159,9 @@ def validate_all() -> list[str]:
     for path in paths:
         data = load_case(path)
         case_id = data.get("case_id")
-        if case_id in seen_ids:
-            errors.append(f"duplicate case_id: {case_id}")
         if isinstance(case_id, str):
+            if case_id in seen_ids:
+                errors.append(f"duplicate case_id: {case_id}")
             seen_ids.add(case_id)
             discovered_ids.append(case_id)
         errors.extend(validate_case(data, path))
