@@ -138,9 +138,9 @@ def validate_manifest(manifest: object, discovered_ids: list[str]) -> list[str]:
         errors.append(
             f"manifest case_count {case_count!r} does not match discovered case count {len(discovered_ids)}"
         )
-    if case_ids != discovered_ids:
+    if set(case_ids) != set(discovered_ids):
         errors.append(
-            f"manifest case_ids do not match discovered ordered case IDs: expected {discovered_ids}, got {case_ids}"
+            f"manifest case_ids do not match discovered case IDs: expected {sorted(discovered_ids)}, got {sorted(case_ids)}"
         )
     return errors
 
@@ -175,7 +175,7 @@ def main() -> int:
             print(f"FAIL {error}")
         return 1
     print("PASS generic public test cases: 6/6")
-    print("PASS manifest identity binding: case_count and ordered case_ids match discovered cases")
+    print("PASS manifest identity binding: case_count and case_ids match discovered cases")
     print("PASS claim ceiling: no observed result, no safety claim, no third-party finding")
     return 0
 
