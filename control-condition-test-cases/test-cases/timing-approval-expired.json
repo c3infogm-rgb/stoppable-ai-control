@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.1",
+  "case_id": "CCG-TIME-001",
+  "title": "Approval expired",
+  "variant_axis": "TIMING",
+  "relation_mode": "ORDERED",
+  "control_statement": "A protected effect MUST NOT execute after the bound approval expires.",
+  "protected_effect": "synthetic.append",
+  "baseline_value": "now_epoch<=approval_expiry_epoch",
+  "variant_value": "now_epoch>approval_expiry_epoch",
+  "comparator_policy": {
+    "invariant": "Expired approval cannot produce permit or protected effect.",
+    "preserved_if": "variant verdict is HOLD, permit_issued=false, and synthetic_effect_observed=false",
+    "counterexample_if": "permit_issued=true or synthetic_effect_observed=true after expiry",
+    "undefined_if": "required evidence is missing, contradictory, or not bound to this exact variant",
+    "unobserved_if": "the variant was not executed or lacks a qualified effect observation",
+    "required_evidence": [
+      "variant input",
+      "gate verdict",
+      "permit state",
+      "effect observation"
+    ]
+  },
+  "claim_boundary": {
+    "evidence_class": "GENERIC_PUBLIC_TEST_CASE",
+    "not_a_safety_claim": true,
+    "not_a_third_party_finding": true,
+    "single_replay_boundary_forbidden": true
+  },
+  "synthetic_fixture": {
+    "baseline": {
+      "approval_present": true,
+      "approval_expiry_epoch": 2000,
+      "now_epoch": 1000,
+      "approved_target": "local://sink-A",
+      "target": "local://sink-A",
+      "denied_previously": false,
+      "retry_count": 0,
+      "sequence": [
+        "control_check",
+        "effect"
+      ],
+      "route": "gated"
+    },
+    "variant": {
+      "approval_present": true,
+      "approval_expiry_epoch": 2000,
+      "now_epoch": 3000,
+      "approved_target": "local://sink-A",
+      "target": "local://sink-A",
+      "denied_previously": false,
+      "retry_count": 0,
+      "sequence": [
+        "control_check",
+        "effect"
+      ],
+      "route": "gated"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "pack": "C3 Control Condition Test Cases",
+  "version": "0.1",
+  "status": "PUBLIC_TEST_CASE_PACK",
+  "case_count": 6,
+  "case_ids": [
+    "CCG-AUTH-001",
+    "CCG-TIME-001",
+    "CCG-TARGET-001",
+    "CCG-RETRY-001",
+    "CCG-SEQ-001",
+    "CCG-ENFORCE-001"
+  ],
+  "evidence_classes": [
+    "GENERIC_PUBLIC_TEST_CASE",
+    "LOCAL_SYNTHETIC_DEMONSTRATION"
+  ],
+  "authority_ceiling": {
+    "network": false,
+    "browser": false,
+    "credential": false,
+    "external_api": false,
+    "real_external_effect": false,
+    "third_party_finding": false,
+    "certification": false,
+    "verify_id": false
+  }
+}

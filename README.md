@@ -28,6 +28,18 @@ Most AI systems optimize for output. This pattern optimizes for **safe non-actio
 - Minimal demo notes: `demo.txt`
 - Audit artifacts (ZIP): `covid_seed_audit_pack.zip` *(see “Audit artifacts” below)*
 
+## Control Condition Test Cases v0.1
+
+A new public test-case pack shows how to perturb declared control conditions and compare the observed behavior without turning a single passing test into a safety claim.
+
+- 6 generic cases across `AUTHORITY / TIMING / TARGET / RETRY_RECOVERY / SEQUENCE / ENFORCEMENT_PLACEMENT`
+- explicit Comparator Policy and Claim Boundary
+- Python 3.12 validator and focused tests
+- local synthetic gate demo with a known-gap negative control
+- no browser, credentials, external API, or real external effect
+
+Start here: **[`control-condition-test-cases/README.md`](control-condition-test-cases/README.md)**
+
 ## Audit artifacts (ZIP)
 `covid_seed_audit_pack.zip` includes:
 - `run_manifest.json` (run config + dataset hash)
