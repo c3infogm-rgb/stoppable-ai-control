@@ -95,6 +95,17 @@ class PublicPackTests(unittest.TestCase):
         errors = validate_case(case, Path("synthetic"))
         self.assertTrue(any("case_id must match" in error for error in errors))
 
+    def test_non_object_case_document_fails_closed(self) -> None:
+        errors = validate_case(["not", "an", "object"], Path("synthetic"))
+        self.assertTrue(any("case document must be an object" in error for error in errors))
+
+    def test_unhashable_case_id_fails_without_crashing(self) -> None:
+        path = ROOT / "test-cases" / "authority-approval-missing.json"
+        case = copy.deepcopy(load_case(path))
+        case["case_id"] = ["CCG", "BAD"]
+        errors = validate_case(case, Path("synthetic"))
+        self.assertTrue(any("case_id must match" in error for error in errors))
+
     def test_manifest_case_ids_must_match_discovered_ids(self) -> None:
         manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
         discovered = list(manifest["case_ids"])
