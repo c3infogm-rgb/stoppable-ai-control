@@ -52,7 +52,8 @@ def known_gap_gate(request: dict) -> GateResult:
     return _result("PASS", "KNOWN_GAP_ROUTE_CHECK_OMITTED")
 
 
-def classify_variant(result: GateResult) -> str:
+def classify_no_effect_variant(result: GateResult) -> str:
+    """Comparator helper only for variants whose declared invariant requires no permit/effect."""
     if result.synthetic_effect_observed or result.permit_issued:
         return "COUNTEREXAMPLE_OBSERVED"
     if result.verdict == "HOLD":
