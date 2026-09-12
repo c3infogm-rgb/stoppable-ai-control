@@ -51,6 +51,14 @@ PRESERVED | COUNTEREXAMPLE_OBSERVED | UNDEFINED | UNOBSERVED | CANDIDATE
 
 Boundaryを推定するには、少なくとも同一Control / Baselineに属する複数の比較可能な観測、Comparatorの整合、Variant関係、Provenanceが必要です。
 
+### 通常のレビュー / テストとの違い
+
+通常のレビューでもControl上のcandidateを見つけることは可能です。制御条件ギャップチェックは、そのcandidateをDeclared Control・Comparator・Effect Boundary・Variantへ分解し、条件差をReplayして結果の変化を観測できる形へ変換します。
+
+内部Referenceで実際に行った比較構造を、第三者製品固有情報を伏せて公開用にまとめています。
+
+→ [通常のレビューと制御条件ギャップチェックの違い](NORMAL_REVIEW_VS_GAP_CHECK.md)
+
 ## Quick start
 
 Python 3.12、追加依存なしで確認できます。
