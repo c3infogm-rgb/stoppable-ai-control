@@ -100,6 +100,22 @@ python -B examples/synthetic_gate/run_demo.py
 
 `REPRESENTATION / CONFIGURATION / AUTHORITY / STATE / SEQUENCE / TIMING / TARGET / PAYLOAD / RETRY_RECOVERY / ENFORCEMENT_PLACEMENT / CONTEXT / MODEL_REVIEWER / ERROR_PATH`
 
+### 非公開の正式検査での扱い
+
+この13軸は、公開6ケースを増やすためだけの一覧ではありません。
+
+弊会の非公開の制御条件ギャップチェックでは、13軸を**検査設計の候補空間**として扱い、対象Control、経路、Effect Boundary、証拠条件に応じて適用する軸を選定します。必要に応じて複数軸の組合せ条件もReplay候補になります。
+
+ただし、次を意味しません。
+
+- すべての案件で13軸すべてを必ず実行する
+- 13軸を機械的に総当たりする
+- 13軸を確認すれば安全性が証明される
+- Gapや脆弱性を完全に網羅できる
+- 公開6ケースだけで正式検査を代替できる
+
+公開範囲は、13軸の名称と代表6ケースまでです。案件ごとの軸選定ロジック、組合せ戦略、優先順位付けの詳細は公開していません。
+
 ## License status
 
 v0.1では、このサブディレクトリの公開によって再利用ライセンスや特許ライセンスを付与しません。
